@@ -19,89 +19,89 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Random_GetParams_FullMethodName = "/Random/GetParams"
+	TimeChanger_GetParams_FullMethodName = "/TimeChanger/GetParams"
 )
 
-// RandomClient is the client API for Random service.
+// TimeChangerClient is the client API for TimeChanger service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type RandomClient interface {
+type TimeChangerClient interface {
 	GetParams(ctx context.Context, in *Params, opts ...grpc.CallOption) (*ChangedParams, error)
 }
 
-type randomClient struct {
+type timeChangerClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewRandomClient(cc grpc.ClientConnInterface) RandomClient {
-	return &randomClient{cc}
+func NewTimeChangerClient(cc grpc.ClientConnInterface) TimeChangerClient {
+	return &timeChangerClient{cc}
 }
 
-func (c *randomClient) GetParams(ctx context.Context, in *Params, opts ...grpc.CallOption) (*ChangedParams, error) {
+func (c *timeChangerClient) GetParams(ctx context.Context, in *Params, opts ...grpc.CallOption) (*ChangedParams, error) {
 	out := new(ChangedParams)
-	err := c.cc.Invoke(ctx, Random_GetParams_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, TimeChanger_GetParams_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// RandomServer is the server API for Random service.
-// All implementations must embed UnimplementedRandomServer
+// TimeChangerServer is the server API for TimeChanger service.
+// All implementations must embed UnimplementedTimeChangerServer
 // for forward compatibility
-type RandomServer interface {
+type TimeChangerServer interface {
 	GetParams(context.Context, *Params) (*ChangedParams, error)
-	mustEmbedUnimplementedRandomServer()
+	mustEmbedUnimplementedTimeChangerServer()
 }
 
-// UnimplementedRandomServer must be embedded to have forward compatible implementations.
-type UnimplementedRandomServer struct {
+// UnimplementedTimeChangerServer must be embedded to have forward compatible implementations.
+type UnimplementedTimeChangerServer struct {
 }
 
-func (UnimplementedRandomServer) GetParams(context.Context, *Params) (*ChangedParams, error) {
+func (UnimplementedTimeChangerServer) GetParams(context.Context, *Params) (*ChangedParams, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetParams not implemented")
 }
-func (UnimplementedRandomServer) mustEmbedUnimplementedRandomServer() {}
+func (UnimplementedTimeChangerServer) mustEmbedUnimplementedTimeChangerServer() {}
 
-// UnsafeRandomServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to RandomServer will
+// UnsafeTimeChangerServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TimeChangerServer will
 // result in compilation errors.
-type UnsafeRandomServer interface {
-	mustEmbedUnimplementedRandomServer()
+type UnsafeTimeChangerServer interface {
+	mustEmbedUnimplementedTimeChangerServer()
 }
 
-func RegisterRandomServer(s grpc.ServiceRegistrar, srv RandomServer) {
-	s.RegisterService(&Random_ServiceDesc, srv)
+func RegisterTimeChangerServer(s grpc.ServiceRegistrar, srv TimeChangerServer) {
+	s.RegisterService(&TimeChanger_ServiceDesc, srv)
 }
 
-func _Random_GetParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TimeChanger_GetParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Params)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RandomServer).GetParams(ctx, in)
+		return srv.(TimeChangerServer).GetParams(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Random_GetParams_FullMethodName,
+		FullMethod: TimeChanger_GetParams_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RandomServer).GetParams(ctx, req.(*Params))
+		return srv.(TimeChangerServer).GetParams(ctx, req.(*Params))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Random_ServiceDesc is the grpc.ServiceDesc for Random service.
+// TimeChanger_ServiceDesc is the grpc.ServiceDesc for TimeChanger service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Random_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "Random",
-	HandlerType: (*RandomServer)(nil),
+var TimeChanger_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "TimeChanger",
+	HandlerType: (*TimeChangerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetParams",
-			Handler:    _Random_GetParams_Handler,
+			Handler:    _TimeChanger_GetParams_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
