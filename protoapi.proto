@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "./;protoapi";
+
+service Random {
+    rpc GetParams (Params) returns (ChangedParams);
+}
+
+message Params {
+    int64 F = 1;
+    int64 S = 2;
+}
+
+message ChangedParams {
+    int64 F = 1;
+    int64 S = 2;
+    string M = 3;
+}
